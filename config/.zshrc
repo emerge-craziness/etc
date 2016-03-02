@@ -4,7 +4,9 @@
 # Written since summer 2001
 
 # colors
-eval `dircolors /etc/DIR_COLORS`
+#eval `dircolors /etc/DIR_COLORS`
+
+fpath=(~/.zsh/completion $fpath)
 
 autoload -U zutil
 autoload -U compinit
@@ -24,6 +26,12 @@ bindkey "\e[2~" overwrite-mode          # Ins
 bindkey "\e[3~" delete-char             # Delete
 bindkey '\eOH' beginning-of-line
 bindkey '\eOF' end-of-line
+
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
 
 # Activation
 compinit
@@ -50,6 +58,12 @@ alias py3=python3
 alias asc="feh -. ascii-image"
 alias grep="grep --color=auto"
 alias asct="vim ascii-text"
+alias pb="xclip -selection primary"
+alias cb="xclip -selection clipboard"
+alias cal="cal -m"
+alias R="R --quiet"
+alias promises="watch -n 1 promise list_undone"
+#alias startx="startx -- vt$(echo $TTY | sed -r 's/.*tty(.*).*/\1/g')"
 
 alias -s jar="java -jar"
 alias -s jpg="feh -."
@@ -108,7 +122,8 @@ prompt_color="yellow"
 
 host="%B%{$fg[$host_color]%}%n"
 cpath="%B%{$fg[$path_color]%}%c%b"
-end="%(?..%{$fg[$err_color]%}%? )%B%{$fg[$prompt_color]%}%#%{$fg[$text_color]%}"
+#end="%(?..%{$fg[$err_color]%}%? )%B%{$fg[$prompt_color]%}%#%{$fg[$text_color]%}"
+end="%(?..%{$fg[$err_color]%}%? )%B%{$fg[$prompt_color]%}%#%{$reset_color%}"
 
 PS1="$host $cpath $end "
 
@@ -117,4 +132,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 HIST_STAMPS="mm/dd/yyyy"
 
+PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/vmware/bin:/usr/x86_64-pc-linux-gnu/gcc-bin/4.9.3:~/.gem/ruby/2.3.0/bin:/home/local/usr/bin/:~/go/bin"
 PATH="$PATH:$HOME/Binary:/opt/vmware/bin"
+export GOPATH=~/go
